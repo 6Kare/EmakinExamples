@@ -1,0 +1,226 @@
+<ProcessDefinition Version="10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Namespaces>
+    <Namespace Prefix="forms" NamespaceURI="http://schemas.emakin.com" SchemaLocation="http://schemas.emakin.com"/>
+  </Namespaces>
+  <Pools>
+    <Pool Id="679edce3-4f05-404a-b565-6819e5e6efd2" Name="Pool" RootElement="Data" DefaultForm="95449655-6abf-4d17-a8fe-875cdba45600">
+      <Tasks>
+        <Task Id="1df1208a-fd04-41e5-a000-b56782944cea" Name="Start Task" Caption="Start Task" IsInitiator="True" Module="Automation">
+          <Actions>
+            <Action Id="0f57e18f-48a5-4ea7-94b0-1b4d42215cf9" Name="Submit" Caption="Submit">
+              <Routes>
+                <Route Id="16f626fe-fe34-4d8d-8ef9-ad1aa0c59d5f" Name="" Target="7bde7e31-55ae-4c44-aea1-d014c981f80a"/>
+              </Routes>
+            </Action>
+          </Actions>
+          <Configurations>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail Priority="None">
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+            <User Role="" WatcherRole="" Form="" DeadlineNotify="False" AllowDefaultPrint="False" AllowForward="False" AllowDelegation="False">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+        <Task Id="7bde7e31-55ae-4c44-aea1-d014c981f80a" Name="Sales Approval" Caption="Sales Approval" Module="Automation">
+          <Actions>
+            <Action Id="af9d5dbe-d0be-4fc5-a939-df56a8085f4c" Name="Approve" Caption="Approve">
+              <Routes>
+                <Route Id="4e578e7a-dbd5-4049-83e5-d863d4a136c7" Name="" Target="8955fe21-8ecc-412f-b841-ed0e78bb69a8"/>
+              </Routes>
+            </Action>
+            <Action Id="5904312c-da8c-41f5-9e26-3fce6f5f3dec" Name="Reject" Caption="Reject" Order="1">
+              <Routes>
+                <Route Id="c3d73f1e-eba6-4ed1-9620-43a02b0da0d9" Name="" Target="1df1208a-fd04-41e5-a000-b56782944cea"/>
+              </Routes>
+            </Action>
+          </Actions>
+          <Configurations>
+            <User Role="0439855e-973a-49cf-a6d1-3e3a4c2d70bc" WatcherRole="" Form="">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail>
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+        <Task Id="8955fe21-8ecc-412f-b841-ed0e78bb69a8" Name="Completion" Caption="Completion" Module="Automation">
+          <Actions>
+            <Action Id="8c360f66-6a81-4af0-9123-2b0af9bbcbf4" Name="Close" Caption="Close"/>
+          </Actions>
+          <Configurations>
+            <User Role="" WatcherRole="" Form="">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail>
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+      </Tasks>
+      <Roles>
+        <Role Id="0439855e-973a-49cf-a6d1-3e3a4c2d70bc" Name="Sales Team" Caption="Sales Team">
+          <Identity>
+            <DecisionTable Id="">
+              <Inputs>
+                <Input/>
+              </Inputs>
+              <Outputs>
+                <Output TypeRef="identity" Name="Identity">
+                  <Label><![CDATA[AssignedTo]]></Label>
+                </Output>
+              </Outputs>
+              <Rules>
+                <Rule>
+                  <Inputs>
+                    <Input><![CDATA[]]></Input>
+                  </Inputs>
+                  <Outputs>
+                    <Output><![CDATA["e527bbe0-277c-4a96-b700-c42e2fa9bc4b"]]></Output>
+                  </Outputs>
+                </Rule>
+              </Rules>
+            </DecisionTable>
+            <Expression Id=""><![CDATA[]]></Expression>
+          </Identity>
+        </Role>
+      </Roles>
+      <Forms>
+        <Form Id="95449655-6abf-4d17-a8fe-875cdba45600" Name="Form" Caption="Form">
+          <Contents/>
+          <Script>
+            <Content><![CDATA[]]></Content>
+          </Script>
+        </Form>
+      </Forms>
+    </Pool>
+  </Pools>
+  <AccessScopes/>
+  <XmlSchemas>
+    <xs:schema elementFormDefault="qualified">
+      <xs:element name="Data">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </XmlSchemas>
+  <ExternalXmlSchemas>
+    <xs:schema xmlns:tns="http://schemas.emakin.com" elementFormDefault="unqualified" targetNamespace="http://schemas.emakin.com">
+      <xs:complexType name="Identity">
+        <xs:sequence/>
+        <xs:attribute name="Caption" type="xs:string"/>
+        <xs:attribute name="Type" type="xs:string"/>
+        <xs:attribute name="Domain" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="File">
+        <xs:attribute name="Caption"/>
+        <xs:attribute name="Url"/>
+      </xs:complexType>
+      <xs:complexType name="DecisionTable">
+        <xs:sequence>
+          <xs:element name="OutputLabel" type="xs:string"/>
+          <xs:element name="Inputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Input">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="Expression">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="InputValues">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Outputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Output">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="OutputValues" type="xs:string"/>
+                      <xs:element name="Default" type="xs:string"/>
+                    </xs:sequence>
+                    <xs:attribute name="TypeRef" type="xs:string"/>
+                    <xs:attribute name="Name" type="xs:string"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Rules">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Rule">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Description" type="xs:string"/>
+                      <xs:element name="Inputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Input" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Outputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Output" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute default="Unique" name="HitPolicy" type="xs:string"/>
+        <xs:attribute name="Aggregation" type="xs:string"/>
+      </xs:complexType>
+    </xs:schema>
+  </ExternalXmlSchemas>
+</ProcessDefinition>
