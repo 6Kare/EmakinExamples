@@ -1,0 +1,209 @@
+<ProcessDefinition Version="10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Namespaces>
+    <Namespace Prefix="forms" NamespaceURI="http://schemas.emakin.com" SchemaLocation="http://schemas.emakin.com"/>
+  </Namespaces>
+  <Pools>
+    <Pool Id="ad042ef9-3112-4bc0-a8c7-81435ed916a0" Name="Pool" RootElement="Data" DefaultForm="728149b3-c0b2-45c6-82df-ee3a55dbc4fa" IsAnonymouslyAccessible="True">
+      <Tasks>
+        <Task Id="fe0901a8-eb8b-4ae5-96e9-cc1c705a15e8" Name="Service Request" Caption="Service Request" IsInitiator="True" Module="Automation">
+          <Actions>
+            <Action Id="48e9c20a-aeb7-4beb-ba60-d6f184fbc4ca" Name="Submit" Caption="Submit">
+              <Routes>
+                <Route Id="fe1a1636-32f6-4ee9-b1b8-3e11a989b917" Name="" Target="00fc05a1-6848-44b7-b579-bf8f08aca3ed"/>
+              </Routes>
+            </Action>
+          </Actions>
+          <Configurations>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail Priority="None">
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+            <User Role="" WatcherRole="" Form="" DeadlineNotify="False" AllowDefaultPrint="False" AllowForward="False" AllowDelegation="False">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+        <Task Id="00fc05a1-6848-44b7-b579-bf8f08aca3ed" Name="Service Handling" Caption="Service Handling" Module="Automation">
+          <Actions>
+            <Action Id="4338b8d3-9955-48b9-8bbd-c02fed15a7e8" Name="Close" Caption="Close"/>
+          </Actions>
+          <Configurations>
+            <User Role="99b2e0f4-cc7f-416f-b97f-04c19d4330bb" WatcherRole="" Form="">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail>
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+      </Tasks>
+      <Roles>
+        <Role Id="99b2e0f4-cc7f-416f-b97f-04c19d4330bb" Name="Service Handler" Caption="Service Handler">
+          <Identity>
+            <DecisionTable Id="">
+              <Inputs>
+                <Input/>
+              </Inputs>
+              <Outputs>
+                <Output TypeRef="identity" Name="Identity">
+                  <Label><![CDATA[AssignedTo]]></Label>
+                </Output>
+              </Outputs>
+              <Rules>
+                <Rule>
+                  <Inputs>
+                    <Input><![CDATA[]]></Input>
+                  </Inputs>
+                  <Outputs>
+                    <Output><![CDATA["7279a246-9545-4986-80ae-bc2d19481937"]]></Output>
+                  </Outputs>
+                </Rule>
+              </Rules>
+            </DecisionTable>
+            <Expression Id=""><![CDATA[]]></Expression>
+          </Identity>
+        </Role>
+      </Roles>
+      <Forms>
+        <Form Id="728149b3-c0b2-45c6-82df-ee3a55dbc4fa" Name="Form" Caption="Form">
+          <Contents>
+            <RowContent>
+              <Label>
+                <Content><![CDATA[Request]]></Content>
+              </Label>
+              <Columns>
+                <Column WidthMD="12">
+                  <Controls>
+                    <HtmlBox Size="Large" XPath="Request"/>
+                  </Controls>
+                </Column>
+              </Columns>
+            </RowContent>
+          </Contents>
+          <Script>
+            <Content><![CDATA[]]></Content>
+          </Script>
+        </Form>
+      </Forms>
+    </Pool>
+  </Pools>
+  <AccessScopes/>
+  <XmlSchemas>
+    <xs:schema elementFormDefault="qualified">
+      <xs:element name="Data">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Request" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </XmlSchemas>
+  <ExternalXmlSchemas>
+    <xs:schema xmlns:tns="http://schemas.emakin.com" elementFormDefault="unqualified" targetNamespace="http://schemas.emakin.com">
+      <xs:complexType name="Identity">
+        <xs:sequence/>
+        <xs:attribute name="Caption" type="xs:string"/>
+        <xs:attribute name="Type" type="xs:string"/>
+        <xs:attribute name="Domain" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="File">
+        <xs:attribute name="Caption"/>
+        <xs:attribute name="Url"/>
+      </xs:complexType>
+      <xs:complexType name="DecisionTable">
+        <xs:sequence>
+          <xs:element name="OutputLabel" type="xs:string"/>
+          <xs:element name="Inputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Input">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="Expression">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="InputValues">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Outputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Output">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="OutputValues" type="xs:string"/>
+                      <xs:element name="Default" type="xs:string"/>
+                    </xs:sequence>
+                    <xs:attribute name="TypeRef" type="xs:string"/>
+                    <xs:attribute name="Name" type="xs:string"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Rules">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Rule">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Description" type="xs:string"/>
+                      <xs:element name="Inputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Input" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Outputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Output" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute default="Unique" name="HitPolicy" type="xs:string"/>
+        <xs:attribute name="Aggregation" type="xs:string"/>
+      </xs:complexType>
+    </xs:schema>
+  </ExternalXmlSchemas>
+</ProcessDefinition>
