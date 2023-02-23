@@ -1,0 +1,360 @@
+<ProcessDefinition Version="10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Namespaces>
+    <Namespace Prefix="forms" NamespaceURI="http://schemas.emakin.com" SchemaLocation="http://schemas.emakin.com"/>
+  </Namespaces>
+  <Pools>
+    <Pool Id="f2a9ac2e-7d0c-4e6f-8afb-ffb3ebd75954" Name="Pool" RootElement="Data" DefaultForm="5f1643d8-670c-4405-98fe-68bf15530e87">
+      <Tasks>
+        <Task Id="d85c95c2-ed74-4df8-9b7b-d9cb041002db" Name="Request Consultancy" Caption="Request Consultancy" IsInitiator="True" Module="Automation">
+          <Actions>
+            <Action Id="d53564ea-49f4-43ab-b1a4-0373576d53ac" Name="Submit" Caption="Submit">
+              <Routes>
+                <Route Id="afa97009-6f63-416a-99b9-c5cb9052785f" Name="" Target="3a072148-6265-4fa7-90fd-60c48aa030a3"/>
+              </Routes>
+            </Action>
+          </Actions>
+          <Configurations>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail Priority="None">
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+            <User Role="" WatcherRole="" Form="" DeadlineNotify="False" AllowDefaultPrint="False" AllowForward="False" AllowDelegation="False">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+        <Task Id="3a072148-6265-4fa7-90fd-60c48aa030a3" Name="Consultancy" Caption="Consultancy" Module="Automation">
+          <Actions>
+            <Action Id="aa4a6cbe-3c4c-4739-9505-c1fdc188fca1" Name="Submit" Caption="Submit">
+              <Routes>
+                <Route Id="4d295b3a-2780-4a9a-a440-cbf31a9858b1" Name="" Target="9428cc9c-dffd-45a8-90f4-424fbec7d17c"/>
+              </Routes>
+            </Action>
+          </Actions>
+          <Configurations>
+            <User Role="a4cfd483-af69-445b-b73d-7322913a6468" WatcherRole="" Form="" AccessScope="Consultant Scope">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail>
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+        <Task Id="9428cc9c-dffd-45a8-90f4-424fbec7d17c" Name="Notification" Caption="Notification" Module="Automation">
+          <Actions>
+            <Action Id="07edf2b1-d9b1-4992-960d-3f0f1fe57a99" Name="Close" Caption="Close"/>
+          </Actions>
+          <Configurations>
+            <User Role="" WatcherRole="" Form="">
+              <FormSections/>
+              <PrintTemplates/>
+            </User>
+            <SubWorkflow/>
+            <Automation/>
+            <Event/>
+            <Mail>
+              <To/>
+              <Cc/>
+              <Bcc/>
+              <Attachments/>
+            </Mail>
+          </Configurations>
+          <Evaluation Enabled2="False">
+            <Schedule Name=""/>
+          </Evaluation>
+        </Task>
+      </Tasks>
+      <Roles>
+        <Role Id="a4cfd483-af69-445b-b73d-7322913a6468" Name="Consultant" Caption="Consultant">
+          <Identity Type="Participant">
+            <DecisionTable Id="">
+              <Outputs>
+                <Output TypeRef="identity" Name="Identity">
+                  <Label><![CDATA[AssignedTo]]></Label>
+                </Output>
+              </Outputs>
+              <Rules>
+                <Rule>
+                  <Outputs>
+                    <Output><![CDATA[]]></Output>
+                  </Outputs>
+                </Rule>
+              </Rules>
+            </DecisionTable>
+            <Expression Language="Javascript" Id=""><![CDATA[
+$Membership.EnsureParticipant({
+    Email : 'john.doe@gmail.com',
+    Name : 'John Doe',
+    Language : 'en'
+});
+]]></Expression>
+            <Participant>
+              <EMailAddress>john.doe@gmail.com</EMailAddress>
+              <DisplayName>John Doe</DisplayName>
+              <Language>en</Language>
+            </Participant>
+          </Identity>
+        </Role>
+      </Roles>
+      <Forms>
+        <Form Id="5f1643d8-670c-4405-98fe-68bf15530e87" Name="Form" Caption="Form">
+          <Contents>
+            <RowContent>
+              <Label>
+                <Content><![CDATA[Request]]></Content>
+              </Label>
+              <Columns>
+                <Column WidthMD="12">
+                  <Controls>
+                    <HtmlBox Size="Large" XPath="Request"/>
+                  </Controls>
+                </Column>
+              </Columns>
+            </RowContent>
+          </Contents>
+          <Script>
+            <Content><![CDATA[]]></Content>
+          </Script>
+        </Form>
+      </Forms>
+    </Pool>
+  </Pools>
+  <AccessScopes>
+    <AccessScope Name="Consultant Scope">
+      <Features>
+        <Feature Name="file_read" Enabled="True"/>
+        <Feature Name="file_write" Enabled="True"/>
+        <Feature Name="organization_read"/>
+        <Feature Name="database_read"/>
+        <Feature Name="network"/>
+        <Feature Name="wopi"/>
+      </Features>
+    </AccessScope>
+  </AccessScopes>
+  <XmlSchemas>
+    <xs:schema elementFormDefault="qualified">
+      <xs:element name="Data">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Request" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </XmlSchemas>
+  <ExternalXmlSchemas>
+    <xs:schema xmlns:tns="http://schemas.emakin.com" elementFormDefault="unqualified" targetNamespace="http://schemas.emakin.com">
+      <xs:complexType name="Identity">
+        <xs:sequence/>
+        <xs:attribute name="Caption" type="xs:string"/>
+        <xs:attribute name="Type" type="xs:string"/>
+        <xs:attribute name="Domain" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="File">
+        <xs:attribute name="Caption"/>
+        <xs:attribute name="Url"/>
+      </xs:complexType>
+      <xs:complexType name="DecisionTable">
+        <xs:sequence>
+          <xs:element name="OutputLabel" type="xs:string"/>
+          <xs:element name="Inputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Input">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="Expression">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="InputValues">
+                        <xs:complexType>
+                          <xs:attribute name="TypeRef" type="xs:string"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Outputs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Output">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Label" type="xs:string"/>
+                      <xs:element name="OutputValues" type="xs:string"/>
+                      <xs:element name="Default" type="xs:string"/>
+                    </xs:sequence>
+                    <xs:attribute name="TypeRef" type="xs:string"/>
+                    <xs:attribute name="Name" type="xs:string"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Rules">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Rule">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Description" type="xs:string"/>
+                      <xs:element name="Inputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Input" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Outputs">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Output" type="xs:string"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute default="Unique" name="HitPolicy" type="xs:string"/>
+        <xs:attribute name="Aggregation" type="xs:string"/>
+      </xs:complexType>
+    </xs:schema>
+  </ExternalXmlSchemas>
+  <Localization>
+    <Translations>
+      <Translation Name="Instructions" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Task/Configurations/User/Instructions]]></Location>
+          <Location><![CDATA[//Route/Instructions]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="TaskName" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Task/@Caption]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="ActionName" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Action/@Caption]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="DashboardName" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Screen[@IsDashboard = 'True']/@Name]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="FormCaption" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Form/@Caption]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="Label" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Label/Content]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="Literal" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Footer/Content]]></Location>
+          <Location><![CDATA[//Literal/Content]]></Location>
+          <Location><![CDATA[//AddNewLabel/Content]]></Location>
+          <Location><![CDATA[//LineChart/Title/Content]]></Location>
+          <Location><![CDATA[//LineChart/XAxisLabel/Content]]></Location>
+          <Location><![CDATA[//LineChart/YAxisLabel/Content]]></Location>
+          <Location><![CDATA[//PieChart/Title/Content]]></Location>
+          <Location><![CDATA[//Column/Properties/@Caption]]></Location>
+          <Location><![CDATA[//Column/@Caption]]></Location>
+          <Location><![CDATA[//Column/Caption]]></Location>
+          <Location><![CDATA[//DataExchange/Columns/Column/Caption]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="Html" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Html/Content]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="XPath" Entity="False">
+        <Locations>
+          <Location><![CDATA[//PieChart/Pies/Pie/LabelXPath]]></Location>
+          <Location><![CDATA[//PieChart/Pies/Pie/ValueUnitXPath]]></Location>
+          <Location><![CDATA[//LineChart/Lines/Line/LabelXPath]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="FieldHint" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Hints]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="PlaceHolder" Entity="False">
+        <Locations>
+          <Location><![CDATA[//PlaceHolder]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="DropDownItem" Entity="False">
+        <Locations>
+          <Location><![CDATA[//DropDown/Items/Item/Text]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="ListItem" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Items/Item/Text]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="Variable" Entity="True">
+        <Locations>
+          <Location><![CDATA[//Pool/Variables/Variable]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="RoleName" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Pool/Roles/Role/@Caption]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="ActionConfirmation" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Action/ConfirmationMessage]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="Template" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Templates/Template/Content]]></Location>
+        </Locations>
+      </Translation>
+      <Translation Name="TemplateSubject" Entity="False">
+        <Locations>
+          <Location><![CDATA[//Templates/Template/Subject]]></Location>
+        </Locations>
+      </Translation>
+    </Translations>
+    <Languages/>
+  </Localization>
+</ProcessDefinition>
